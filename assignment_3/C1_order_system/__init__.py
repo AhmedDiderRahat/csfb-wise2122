@@ -12,5 +12,7 @@ ds.DataFactory(cds, sds, ods) \
       .import_stock(data.stock) \
       .import_orders(data.orders)
 
+
+
 print(f"--> {cds.size()} customers, {sds.size()} stock items, {ods.size()} "
       "orders loaded.")
