@@ -14,14 +14,15 @@ class Order:
         :param _customer_id: reference to owning customer (attribute is foreign key in class Customer)
         :param _date: date order was placed (default value is 'now')
         """
-        #
-        # TODO: complete constructor with attributes and initialization
-        #
         self.__id = _id                     # private, final attribute, cannot be altered
+        self.customer_id = _customer_id
 
-    #
-    # TODO: complete class
-    #
+    def get_id(self) -> str:
+        """
+        id getter, returns private customer identifier
+        :return: customer identifier
+        """
+        return self.__id
 
 class OrderItem:
     def __init__(self, _sku: str, _units: int):

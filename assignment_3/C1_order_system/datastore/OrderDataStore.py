@@ -11,21 +11,17 @@ class OrderDataStore:
         """
         Constructor
         """
-        # print(f'OrderDataStore singleton instantiated')
-        #
-        # TODO: complete constructor with attributes and initialization
-        #
-        pass
+        self.__data = {}
 
     #
     # TODO: complete missing functions
     #
 
+    def add_order(self, _order: Order):
+        self.__data[_order.get_id()] = _order
+
     def size(self) -> int:
-        #
-        # TODO: complete function
-        #
-        return 0
+        return len(self.__data)
 
     def find_all_orders(self) -> []:
         #

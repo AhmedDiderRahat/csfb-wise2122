@@ -11,11 +11,14 @@ class Stock:
         :param _price: price (private, in cent)
         :param _units_available: units available in stock (private)
         """
-        #
-        # TODO: complete constructor with attributes and initialization
-        #
         self.__sku = _id                            # private, final, cannot be altered
+        self.description = _description
+        self.price = _price
+        self.unit_available = _units_available
 
-    #
-    # TODO: complete class
-    #
+    def get_id(self) -> int:
+        """
+        id getter, returns private customer identifier
+        :return: customer identifier
+        """
+        return self.__sku

@@ -13,16 +13,28 @@ class StockDataStore:
         """
         # print(f'StockDataStore singleton instantiated')
         #
-        # TODO: complete constructor with attributes and initialization
-        #
-        pass
+        self.__data = {}
 
-    #
-    # TODO: complete missing functions
-    #
+    def add_stock(self, _stock: Stock):
+        self.__data[_stock.get_id()] = _stock
+
+    def remove_stock(self, _stock_id: int):
+        self.__data.pop(_stock_id, None)  # remove key from dict, return object if key existed or None otherwise
 
     def size(self) -> int:
-        #
-        # TODO: complete function
-        #
-        return 0
+        return len(self.__data)
+
+    def find_stock_by_id(self, _id: int) -> Stock:
+        return self.__data.get(_id)  # get(key) returns None if key is not found
+
+    def find_all_stock(self) -> []:
+        return list(self.__data.values())
+
+    def filter(self, _filter_func: bool) -> [Stock]:
+        _filtered = []
+        for c in self.__data.values():
+            if _filter_func(c):
+                _filtered.append(c)
+        # shorter with build-in filter() function, list() converts filtered-object to list[]
+        # _filtered = list(filter(_filter_func, self.__data.values()))
+        return _filtered

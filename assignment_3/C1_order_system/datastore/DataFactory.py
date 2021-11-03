@@ -1,4 +1,6 @@
 from collections import Iterable
+from datetime import datetime
+
 from C1_order_system.datastore import CustomerDataStore, StockDataStore, OrderDataStore, DataFactory
 import C1_order_system.datamodel as dm
 
@@ -17,6 +19,8 @@ class DataFactory:
         """
         # print(f'DataFactory singleton instantiated')
         self.__customer_ds = _customer_ds   # private, final, cannot be altered
+        self.__stock_ds = _stock_ds
+        self.__order_ds = _order_ds
 
     def import_customers(self, _customers: []) -> DataFactory:
         if isinstance(_customers, Iterable):
@@ -25,15 +29,15 @@ class DataFactory:
         return self
 
     def import_stock(self, _stock: []) -> DataFactory:
-        #
-        # TODO: complete function
-        #
+        if isinstance(_stock, Iterable):
+            # iterate over tuple lists in 'list comprehension' style
+            [self.__add_stock_from_tuple(_t) for _t in _stock]
         return self
 
     def import_orders(self, _orders: []) -> DataFactory:
-        #
-        # TODO: complete function
-        #
+        if isinstance(_orders, Iterable):
+            # iterate over tuple lists in 'list comprehension' style
+            [self.__add_order_from_tuple(_t) for _t in _orders]
         return self
 
     def __add_customer_from_tuple(self, _t: ()):
@@ -47,15 +51,20 @@ class DataFactory:
             self.__customer_ds.add_customer(_customer_entity)
 
     def __add_stock_from_tuple(self, _t: ()):
-        # sample tuple: ('0931C010', 'EOS 1D X Mark II Gehäuse', 6299.0, 2, 'Digitale Spiegelreflexkameras')
-        #
-        # TODO: complete function
-        #
-        pass
+        if len(_t) >= 4:
+            _stock_id = str(_t[0])  # cast to int (to make sure it's int)
+            _description = str(_t[1])
+            _unit_price = int(_t[2])
+            _unit_in_stock = int(_t[3])
+
+            _stock_entity = dm.Stock(_stock_id, _description, _unit_price, _unit_in_stock)
+            self.__stock_ds.add_stock(_stock_entity)
 
     def __add_order_from_tuple(self, _t: ()):
         # sample tuple: ('00-937-09641', 714268, '2520A015', 1, 'EF 135mm f/2L USM ')
-        #
-        # TODO: complete function
-        #
-        pass
+        if len(_t) >= 5:
+            _order_id = str(_t[0])  # cast to int (to make sure it's int)
+            _customer_id = int(_t[1])
+
+            _order_entity = dm.Order(_order_id, _customer_id)
+            self.__order_ds.add_order(_order_entity)
