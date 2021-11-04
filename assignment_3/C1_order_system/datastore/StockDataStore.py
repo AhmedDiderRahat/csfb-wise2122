@@ -16,7 +16,7 @@ class StockDataStore:
         self.__data = {}
 
     def add_stock(self, _stock: Stock):
-        self.__data[_stock.get_id()] = _stock
+        self.__data[_stock.get_sku()] = _stock
 
     def remove_stock(self, _stock_id: int):
         self.__data.pop(_stock_id, None)  # remove key from dict, return object if key existed or None otherwise

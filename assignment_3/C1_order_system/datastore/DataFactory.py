@@ -18,7 +18,7 @@ class DataFactory:
         :param _order_ds: dependency injected for OrderDataStore instance
         """
         # print(f'DataFactory singleton instantiated')
-        self.__customer_ds = _customer_ds   # private, final, cannot be altered
+        self.__customer_ds = _customer_ds  # private, final, cannot be altered
         self.__stock_ds = _stock_ds
         self.__order_ds = _order_ds
 
@@ -43,7 +43,7 @@ class DataFactory:
     def __add_customer_from_tuple(self, _t: ()):
         # sample tuple: (505101, 'Abraham Paul', '840 E Dana St, CA 94041 Mountain View', '1-864-259-3252')
         if len(_t) >= 3:
-            _customer_id = int(_t[0])       # cast to int (to make sure it's int)
+            _customer_id = int(_t[0])  # cast to int (to make sure it's int)
             _name = str(_t[1])
             _address = str(_t[2])
             _phone = str(_t[3])
@@ -66,5 +66,16 @@ class DataFactory:
             _order_id = str(_t[0])  # cast to int (to make sure it's int)
             _customer_id = int(_t[1])
 
-            _order_entity = dm.Order(_order_id, _customer_id)
-            self.__order_ds.add_order(_order_entity)
+            _sku = str(_t[2])
+            _units = int(_t[3])
+
+            _order_object = self.__order_ds.find_order_by_id(_order_id)
+
+            if _order_object is None:
+                _order_entity = dm.Order(_order_id, _customer_id)
+                _order_entity.add_item(_sku, _units)
+                self.__order_ds.add_order(_order_entity)
+            else:
+                _order_object.add_item(_sku, _units)
+                self.__order_ds.remove_order(_order_id)
+                self.__order_ds.add_order(_order_object)
