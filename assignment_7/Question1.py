@@ -21,9 +21,6 @@ def optimize_scrum_tasks(_cost_constraint: int) -> (int, int, [int]):
     # get all possible sets of solution
     _candidates_set = generate(list(range(0, len(scrum_tasks))))
 
-    _sol_benefit = 0
-    _sol_cost = 0
-
     for _candidate in _candidates_set:
         _sum_benefit = 0
         _sum_cost = 0
